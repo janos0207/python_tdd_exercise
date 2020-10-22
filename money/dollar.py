@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-class Dollar(object):
+class Dollar:
     def __init__(self, amount: int):
-        self.amount = amount
+        self._amount = amount
 
     def times(self, multiplier: int) -> Dollar:
-        return Dollar(self.amount * multiplier)
+        return Dollar(self._amount * multiplier)
 
-    def equals(self, dollar: Dollar):
-        return self.amount == dollar.amount
+    def __eq__(self, dollar: Dollar):
+        return self._amount == dollar._amount
