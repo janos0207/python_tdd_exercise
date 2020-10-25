@@ -1,6 +1,7 @@
 import unittest
 from money import Dollar, Franc
 
+
 class TestMoney(unittest.TestCase):
     def test_multiplication(self):
         "Multiplication of Dollars should return new Dollar object of multiplied amount."
@@ -12,6 +13,8 @@ class TestMoney(unittest.TestCase):
         "Dollars should be equal iff they have same amount."
         self.assertEqual(Dollar(5), Dollar(5))
         self.assertNotEqual(Dollar(5), Dollar(6))
+        self.assertEqual(Franc(5), Franc(5))
+        self.assertNotEqual(Franc(5), Franc(6))
 
     def test_franc_multiplication(self):
         "Multiplication of Francs should return new Franc object of multiplied amount."
