@@ -3,5 +3,5 @@ from money.money import Money
 
 
 class Dollar(Money):
-    def times(self, multiplier: int) -> Dollar:
+    def times(self, multiplier: int) -> Money:
         return Dollar(self._amount * multiplier)
