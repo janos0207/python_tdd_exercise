@@ -6,4 +6,4 @@ class Money:
         self._amount = amount
 
     def __eq__(self, money: Money):
-        return self._amount == money._amount
+        return isinstance(money, type(self)) and self._amount == money._amount

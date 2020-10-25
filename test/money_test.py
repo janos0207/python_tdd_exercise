@@ -10,11 +10,12 @@ class TestMoney(unittest.TestCase):
         self.assertEqual(Dollar(15), five.times(3))
 
     def test_equality(self):
-        "Dollars should be equal iff they have same amount."
+        "Moneys should be equal iff they have same currency and amount."
         self.assertEqual(Dollar(5), Dollar(5))
         self.assertNotEqual(Dollar(5), Dollar(6))
         self.assertEqual(Franc(5), Franc(5))
         self.assertNotEqual(Franc(5), Franc(6))
+        self.assertNotEqual(Dollar(5), Franc(5))
 
     def test_franc_multiplication(self):
         "Multiplication of Francs should return new Franc object of multiplied amount."
