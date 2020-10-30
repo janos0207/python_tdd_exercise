@@ -13,24 +13,12 @@ class TestMoney(unittest.TestCase):
         "Moneys should be equal iff they have same currency and amount."
         self.assertEqual(Money.dollar(5), Money.dollar(5))
         self.assertNotEqual(Money.dollar(5), Money.dollar(6))
-        self.assertEqual(Money.franc(5), Money.franc(5))
-        self.assertNotEqual(Money.franc(5), Money.franc(6))
         self.assertNotEqual(Money.dollar(5), Money.franc(5))
-
-    def test_franc_multiplication(self):
-        "Multiplication of Francs should return new Franc object of multiplied amount."
-        five = Money.franc(5)
-        self.assertEqual(Money.franc(10), five.times(2))
-        self.assertEqual(Money.franc(15), five.times(3))
 
     def test_currency(self):
         "Money should have their own currency information."
         self.assertEqual("USD", Money.dollar(5).currency())
         self.assertEqual("CHF", Money.franc(5).currency())
-
-    def test_different_class_equality(self):
-        "Moneys should be equal in the case of using Money parent class."
-        self.assertEqual(Money(5, "USD"), Money.dollar(5))
 
 
 if __name__ == "__main__":
