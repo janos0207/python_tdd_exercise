@@ -28,6 +28,10 @@ class TestMoney(unittest.TestCase):
         self.assertEqual("USD", Money.dollar(5).currency())
         self.assertEqual("CHF", Money.franc(5).currency())
 
+    def test_different_class_equality(self):
+        "Moneys should be equal in the case of using Money parent class."
+        self.assertEqual(Money(5, "USD"), Money.dollar(5))
+
 
 if __name__ == "__main__":
     unittest.main()
