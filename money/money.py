@@ -1,7 +1,8 @@
 from __future__ import annotations
+from money.expression import Expression
 
 
-class Money:
+class Money(Expression):
     def __init__(self, amount: int, currency):
         self._amount = amount
         self._currency = currency
@@ -13,6 +14,9 @@ class Money:
 
     def __repr__(self):
         return "{0} {1}".format(self._amount, self.currency())
+
+    def __add__(self, addend: Money) -> Expression:
+        return Money(self._amount + addend._amount, self.currency())
 
     def currency(self) -> str:
         return self._currency
