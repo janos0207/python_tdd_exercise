@@ -16,7 +16,11 @@ class Money(Expression):
         return "{0} {1}".format(self._amount, self.currency())
 
     def __add__(self, addend: Money) -> Expression:
-        return Money(self._amount + addend._amount, self.currency())
+        from money.sum import Sum  # avoid cyclic reference
+        return Sum(self, addend)
+
+    def reduce(self, to: str) -> Expression:
+        return self
 
     def currency(self) -> str:
         return self._currency

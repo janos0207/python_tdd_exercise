@@ -1,5 +1,6 @@
 import unittest
 from money import Money, Bank
+from money.sum import Sum
 
 
 class TestMoney(unittest.TestCase):
@@ -24,8 +25,28 @@ class TestMoney(unittest.TestCase):
         "Money addition should return new Expression of the total amount."
         total = Money.dollar(5) + Money.dollar(6)
         bank = Bank()
+        assert isinstance(total, Sum)
         reduced = bank.reduce(total, "USD")
         self.assertEqual(Money.dollar(11), reduced)
+
+    def test_plus_returns_sum(self):
+        five = Money.dollar(5)
+        six = Money.dollar(6)
+        result = five + six
+        assert isinstance(result, Sum)
+        self.assertEqual(five, result.augend)
+        self.assertEqual(six, result.addend)
+
+    def test_reduce_sum(self):
+        total = Money.dollar(3) + Money.dollar(4)
+        bank = Bank()
+        result = bank.reduce(total, "USD")
+        self.assertEqual(Money.dollar(7), result)
+
+    def test_reduce_money(self):
+        bank = Bank()
+        result = bank.reduce(Money.dollar(1), "USD")
+        self.assertEqual(Money.dollar(1), result)
 
 
 if __name__ == "__main__":
