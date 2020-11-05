@@ -1,5 +1,5 @@
 from __future__ import annotations
-from money.expression import Expression
+from money.expression import Bank, Expression
 
 
 class Money(Expression):
@@ -9,19 +9,22 @@ class Money(Expression):
 
     def __eq__(self, obj: object):
         if isinstance(obj, Money):
-            return obj.currency() == self.currency() and self._amount == obj._amount
+            return obj.currency == self.currency and self._amount == obj._amount
         return False
 
     def __repr__(self):
-        return "{0} {1}".format(self._amount, self.currency())
+        return "{0} {1}".format(self._amount, self.currency)
 
     def __add__(self, addend: Money) -> Expression:
         from money.sum import Sum  # avoid cyclic reference
         return Sum(self, addend)
 
-    def reduce(self, to: str) -> Expression:
-        return self
+    def reduce(self, bank: Bank, to: str) -> Money:
+        rate = bank.rate(self.currency, to)
+        assert rate
+        return Money(self._amount // rate, to)
 
+    @property
     def currency(self) -> str:
         return self._currency
 

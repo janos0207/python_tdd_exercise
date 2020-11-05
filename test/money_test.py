@@ -18,8 +18,8 @@ class TestMoney(unittest.TestCase):
 
     def test_currency(self):
         "Money should have their own currency information."
-        self.assertEqual("USD", Money.dollar(5).currency())
-        self.assertEqual("CHF", Money.franc(5).currency())
+        self.assertEqual("USD", Money.dollar(5).currency)
+        self.assertEqual("CHF", Money.franc(5).currency)
 
     def test_simple_addition(self):
         "Money addition should return new Expression of the total amount."
@@ -47,6 +47,15 @@ class TestMoney(unittest.TestCase):
         bank = Bank()
         result = bank.reduce(Money.dollar(1), "USD")
         self.assertEqual(Money.dollar(1), result)
+
+    def test_reduce_money_different_currency(self):
+        bank = Bank()
+        bank.add_rate("CHF", "USD", 2)
+        result = bank.reduce(Money.franc(2), "USD")
+        self.assertEqual(Money.dollar(1), result)
+
+    def test_identity_rate(self):
+        self.assertEqual(1, Bank.rate("USD", "USD"))
 
 
 if __name__ == "__main__":
