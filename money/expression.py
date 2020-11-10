@@ -1,11 +1,17 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from typing import Dict, Tuple
+from typing import Dict, Tuple, TYPE_CHECKING
+if TYPE_CHECKING:
+    from money.money import Money
 
 
 class Expression(ABC):
     @abstractmethod
-    def reduce(self, bank: Bank, to: str) -> Expression:
+    def reduce(self, bank: Bank, to: str) -> Money:
+        pass
+
+    @abstractmethod
+    def __add__(self, addend: Expression) -> Expression:
         pass
 
 
